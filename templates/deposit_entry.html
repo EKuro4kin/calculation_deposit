@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Данные по депозиту
+{% endblock %}
+
+
+{% block body %}
+
+<img class="d-block mx-auto mb-4" src="{{ pic }}" alt="" width="360" height="285">
+<h1>Расчёт депозита</h1>
+<h2>Введите данны депозита</h2>
+<p class="lead">Пожалуйста, заполните поля ниже - для получения расчёта депозита по месяцам, затем нажмите кнопку "Рассчитать".</p>
+    <form action="result_calculation_deposit" class="needs-validation" novalidate="" method="post">
+        <div class="col-6">
+            <label for="date" class="form-label">Дата заявки</label>
+            <input type="text" name="date" class="form-control" id="date" placeholder="Формат даты dd.mm.YYYY" required="">
+            <div class="invalid-feedback">
+                Please enter this field.
+            </div>
+        </div>
+        <div class="col-6">
+            <label for="periods" class="form-label">Количество месяцев по вкладу</label>
+            <input type="text" name="periods" class="form-control" id="periods" placeholder="От 1 до 60" required="">
+            <div class="invalid-feedback">
+                Please enter this field.
+            </div>
+        </div>
+        <div class="col-6">
+            <label for="amount" class="form-label">Сумма вклада</label>
+            <input type="text" name="amount" class="form-control" id="amount" placeholder="От 10 000 до 3 000 0000" required="">
+            <div class="invalid-feedback">
+                Please enter this field.
+            </div>
+        </div>
+        <div class="col-6">
+            <label for="rate" class="form-label">Процент по вкладу</label>
+            <input type="text" name="rate" class="form-control" id="rate" placeholder="От 1 до 8" required="">
+            <div class="invalid-feedback">
+                Please enter this field.
+            </div>
+        </div>
+        <p></p>
+        <button class="w-100 btn btn-success" type="submit">Рассчитать</button>
+    </form>
+
+{% endblock %}
