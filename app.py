@@ -34,8 +34,8 @@ def result_calculation_deposit():
         try:
             new = OrderedDict(calculation_deposit(initial_deposit))
         except:
-            return jsonify({'error': str(calculation_deposit(initial_deposit))}), 400, \
-                   print({'error': str(calculation_deposit(initial_deposit))})
+            return jsonify({'ValueError': calculation_deposit(initial_deposit)}), 400, \
+                   print({'ValueError': calculation_deposit(initial_deposit)})
 
         try:
             new = json.dumps((new), indent=3)
