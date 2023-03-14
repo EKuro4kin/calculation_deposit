@@ -2,17 +2,22 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 
-# initial_deposit = {
-#     'date': '31.01.2021',
-#     'periods': 3,
-#     'amount': 10000,
-#     'rate': 6
-# }
-
 def calculation_deposit(initial_deposit: dict):
+    """
+    :param initial_deposit: dict
+    :return: dict
+    Функция отвечающая за логику API приложения 'calculation_deposit'.
+    Принимает словарь с входными данными депозита, обрабатывает их и возвращает словарь с количеством месяцев указанных
+    в ключе 'periods', где значением является перерассчитанная сумма вклада 'amount' с учётом процента по вкладу 'rate'.
+    Расчёт ведется с даты переданной в значении ключа 'date'.
+
+    При возникновении исключения, функция отлавливает ошибку и возвращает строку с описанием ошибки.
+    """
     count_periods = 0
     count_months = 0
     periods_dict = {}
+
+    # Проверка корректности данных.
     try:
         date_str = initial_deposit['date']
         date_p = datetime.strptime(date_str, "%d.%m.%Y").date()
@@ -22,6 +27,7 @@ def calculation_deposit(initial_deposit: dict):
     except Exception as e:
         return str(e)
 
+    # Проверяем выполнение условия валидации данных.
     if not 0 < periods <= 60 or periods == (True or False):
         return 'Количество месяцев по вкладу должно быть целым числом, в интервале от 0 до 60'
 
@@ -31,6 +37,7 @@ def calculation_deposit(initial_deposit: dict):
     if not 0 < rate <= 8 or periods == (True or False):
         return 'Процент по вкладу должен находится в интервале от 0 до 8'
 
+    # Основная логика приложения. Рассчитывает по месяцам сумму вклада с учётом прибавленных процентов.
     while count_periods < periods:
         count_periods += 1
         count_months += 1
@@ -46,9 +53,3 @@ def calculation_deposit(initial_deposit: dict):
         periods_dict[date_f] = amount
 
     return periods_dict
-
-# a = calculation_deposit(initial_deposit)
-#
-#
-# print(a)
-# print(type(a))

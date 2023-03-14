@@ -1,6 +1,5 @@
 import json
 import os.path
-from datetime import datetime
 from collections import OrderedDict
 
 from flask import Flask, render_template, url_for, request, jsonify
@@ -19,6 +18,9 @@ initial_deposit = {}
 @app.route('/')
 @app.route('/deposit_entry')
 def deposit_entry():
+    """
+    :return: данная
+    """
     pic = os.path.join(app.config['UPLOAD_FOLDER'], 'calculator.jpg')
     return render_template('deposit_entry.html', pic=pic)
 

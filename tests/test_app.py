@@ -6,6 +6,7 @@ from app import app
 picFolder = os.path.join('static', 'pics')
 app.config['UPLOAD_FOLDER'] = picFolder
 
+
 class TestAPI(unittest.TestCase):
     """
     Класс для тестирования http запросов приложения 'calculation_deposit'.
@@ -154,6 +155,7 @@ class TestAPI(unittest.TestCase):
         response = app.test_client().post(url, data=data_request)
         self.assertEqual(response.get_data().decode('unicode-escape'), test_response)
         self.assertEqual(response.status_code, 400)
+
 
 if __name__ == '__main__':
     unittest.main()
