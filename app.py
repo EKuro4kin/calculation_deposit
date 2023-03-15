@@ -19,7 +19,9 @@ initial_deposit = {}
 @app.route('/deposit_entry')
 def deposit_entry():
     """
-    :return: данная
+    :return: страница .html с формой для заполнения данных на расчёт депозита
+    Домашняя страница, которая даёт возможность ввести данные на расчёт депозита:
+    date - дата заявки, periods - количество месяцев по вкладу, amount - сумма вклада, rate - процент по вкладу.
     """
     pic = os.path.join(app.config['UPLOAD_FOLDER'], 'calculator.jpg')
     return render_template('deposit_entry.html', pic=pic)
@@ -27,6 +29,12 @@ def deposit_entry():
 
 @app.route('/result_calculation_deposit', methods=['POST', 'GET'])
 def result_calculation_deposit():
+    """
+    :return: json файл, с отображаемой суммой вклада на конец месяца, либо json файл с описанием исключения.
+    Функция получает запрос метода post с данными полученными из форм ответа функции "deposit_entry",
+    обрабатывает их - производя расчёт депозита, на выходе возвращает json файл с отображением суммы
+    вклада на конец месяца.
+    """
     if request.method == 'POST':
         initial_deposit['date'] = request.form['date']
         initial_deposit['periods'] = request.form['periods']
@@ -37,7 +45,7 @@ def result_calculation_deposit():
             new = OrderedDict(calculation_deposit(initial_deposit))
         except:
             return jsonify({'ValueError': calculation_deposit(initial_deposit)}), 400, \
-                   print({'ValueError': calculation_deposit(initial_deposit)})
+                   print({'ValueError': calculation_deposit(initial_deposit)})            # Для отображения в терминале
 
         try:
             new = json.dumps((new), indent=3)
@@ -50,4 +58,4 @@ def result_calculation_deposit():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=3000)
